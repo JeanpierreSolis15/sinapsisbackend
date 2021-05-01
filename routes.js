@@ -13,17 +13,23 @@ routes.get("/getUsuarios", (req, res) => {
         if (err) {
           return res.send(err);
         } else {
-          let json = {
-            ID_USUA: rows[0].ID_USUA,
-            NO_USUA: rows[0].NO_USUA,
-            EMAIL_USUA: rows[0].EMAIL_USUA,
-            MOVIL_USUA: rows[0].MOVIL_USUA,
-            DIRECCION_USUA: rows[0].DIRECCION_USUA,
-            FECHA_NACIMIENTO_USUA: calcularEdad(rows[0].FECHA_NACIMIENTO_USUA),
-            ESTADO_USUA: rows[0].ESTADO_USUA
+          let array_Result = [];
+          for (let i = 0; i < rows.length; i++) {
+            const element = rows[i];
+            let json = {
+              ID_USUA: element.ID_USUA,
+              NO_USUA: element.NO_USUA,
+              EMAIL_USUA: element.EMAIL_USUA,
+              MOVIL_USUA: element.MOVIL_USUA,
+              DIRECCION_USUA: element.DIRECCION_USUA,
+              FECHA_NACIMIENTO_USUA: calcularEdad(element.FECHA_NACIMIENTO_USUA),
+              ESTADO_USUA: element.ESTADO_USUA
+            }
+            array_Result.push(json)
           }
+          
           // console.log(json)
-          res.json(json);
+          res.json(array_Result);
 
         }
       });
